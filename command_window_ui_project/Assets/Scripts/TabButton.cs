@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
 
 public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler
 {
+    public UnityEvent onTabSelected;
+    public UnityEvent onTabDeselected;
     public ButtonGroup buttonGroup;
 
     public void OnPointerClick(PointerEventData eventData){
@@ -26,9 +29,15 @@ public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandl
         buttonGroup.Subscribe(this);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void Select(){
+        if(onTabSelected != null){
+            onTabSelected.Invoke();
+        }
+    }
+
+    public void Deselect(){
+        if(onTabDeselected != null){
+            onTabDeselected.Invoke();
+        }
     }
 }

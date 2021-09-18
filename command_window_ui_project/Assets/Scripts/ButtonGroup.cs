@@ -7,6 +7,7 @@ public class ButtonGroup : MonoBehaviour
 {
     public List<TabButton> tabButtons; 
     public List<GameObject> objectsToSwap;
+    public TabButton selectedTab;
 
     public void Subscribe(TabButton button){
         if(tabButtons == null){
@@ -17,6 +18,13 @@ public class ButtonGroup : MonoBehaviour
     }
 
     public void OnTabSelected(TabButton button){
+        if(selectedTab != null){
+            selectedTab.Deselect();
+        }
+
+        selectedTab = button;
+
+        selectedTab.Select();
         ResetTabs();
         int index = button.transform.GetSiblingIndex();
         for(int i=0; i<objectsToSwap.Count; i++){
